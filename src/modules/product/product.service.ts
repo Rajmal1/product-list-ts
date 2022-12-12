@@ -28,11 +28,28 @@ export class ProductService {
     );
   }
 
-  getTodayValidProduct(): Promise<Products[]> {
-    return this.productRepository.find({ where: { dias_para_vencimento: 0 } });
+  async getTodayValidProduct(take: string, skip: string): Promise<Paginate> {
+    const [result, total] = await this.productRepository.findAndCount({
+      where: { dias_para_vencimento: 0 },
+    });
+    return this.commonModule.paginateResults(
+      result,
+      total,
+      parseInt(skip),
+      parseInt(take),
+    );
   }
 
-  getTomorowValidProduct(): Promise<Products[]> {
-    return this.productRepository.find({ where: { dias_para_vencimento: 1 } });
+  async getTomorowValidProduct(take: string, skip: string): Promise<Paginate> {
+    const [result, total] = await this.productRepository.findAndCount({
+      where: { dias_para_vencimento: 1 },
+    });
+
+    return this.commonModule.paginateResults(
+      result,
+      total,
+      parseInt(skip),
+      parseInt(take),
+    );
   }
 }
