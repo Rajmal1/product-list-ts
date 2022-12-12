@@ -1,24 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Product } from './product.entity';
+import { Products } from './product.entity';
 
 @Injectable()
 export class ProductService {
   constructor(
-    @InjectRepository(Product)
-    private productRepository: Repository<Product>,
+    @InjectRepository(Products)
+    private productRepository: Repository<Products>,
   ) {}
 
-  getProduct(): Promise<Product[]> {
+  getProduct(): Promise<Products[]> {
     return this.productRepository.find({ order: { name: 'ASC' } });
   }
 
-  getTodayValidProduct(): Promise<Product[]> {
+  getTodayValidProduct(): Promise<Products[]> {
     return this.productRepository.find({ where: { dias_para_vencimento: 0 } });
   }
 
-  getTomorowValidProduct(): Promise<Product[]> {
+  getTomorowValidProduct(): Promise<Products[]> {
     return this.productRepository.find({ where: { dias_para_vencimento: 1 } });
   }
 }

@@ -8,18 +8,12 @@ export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
     return {
       type: 'postgres',
       url: process.env.DATABASE_URL,
-      entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-      migrations: [__dirname + '/../migrations/*{.ts,.js}'],
-      synchronize: false,
+      port: 5432,
+      synchronize: true,
       logging: true,
+      entities: ['dist/entity/**/*{.ts,.js}'],
+      migrations: ['dist/migration/**/*{.ts,.js}'],
+      migrationsRun: true,
     };
   },
-};
-
-export const typeOrmConfig: TypeOrmModuleOptions = {
-  type: 'postgres',
-  url: process.env.DATABASE_URL,
-  entities: [__dirname + '/../**/*.entity.ts'],
-  migrations: [__dirname + '/migrations'],
-  logging: true,
 };

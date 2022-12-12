@@ -1,8 +1,8 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Product {
-  @PrimaryGeneratedColumn()
+export class Products {
+  @PrimaryGeneratedColumn('increment')
   private id: number;
 
   @Column()
