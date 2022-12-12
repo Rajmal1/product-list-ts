@@ -2,13 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Paginate } from 'src/models/paginate';
 import { Repository } from 'typeorm';
+import { CommonService } from '../common/common.service';
 import { Products } from './product.entity';
 
 @Injectable()
 export class ProductService {
   constructor(
     @InjectRepository(Products)
-    private productRepository: Repository<Products>,
+    private readonly productRepository: Repository<Products>,
+    private readonly commonModule: CommonService,
   ) {}
 
   async getProduct(take: string, skip: string): Promise<Paginate> {
@@ -18,10 +20,12 @@ export class ProductService {
       skip: parseInt(skip.toString()) || 0,
     });
 
-    return {
-      data: result,
-      count: total,
-    };
+    return this.commonModule.paginateResults(
+      result,
+      total,
+      parseInt(skip),
+      parseInt(take),
+    );
   }
 
   getTodayValidProduct(): Promise<Products[]> {
