@@ -2,12 +2,17 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Products {
+  constructor(name?: string, dias_para_vencimento?: number) {
+    this.name = name;
+    this.dias_para_vencimento = dias_para_vencimento;
+  }
+
   @PrimaryGeneratedColumn('increment')
   private id: number;
 
   @Column()
-  private name: string;
+  public name: string;
 
   @Column()
-  private dias_para_vencimento: number;
+  public dias_para_vencimento: number;
 }
