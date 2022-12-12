@@ -1,4 +1,4 @@
-import { Controller, Get, Res } from '@nestjs/common';
+import { Controller, Get, Query, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { Products } from './product.entity';
 import { ProductService } from './product.service';
@@ -8,14 +8,20 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Get()
-  async getProduct(@Res() res: Response): Promise<Products[]> {
+  async getProduct(
+    @Res() res: Response,
+    @Query() params: { take: string; skip: string },
+  ) {
     try {
-      const productList = await this.productService.getProduct();
+      const productList = await this.productService.getProduct(
+        params.take,
+        params.skip,
+      );
 
-      if (!productList || productList.length <= 0) {
+      if (!productList || productList.data.length <= 0) {
         res.status(204).send();
       }
-      return productList;
+      res.send(productList);
     } catch (error) {
       res.status(500).send('Error in the application.');
     }

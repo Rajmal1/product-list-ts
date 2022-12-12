@@ -9,9 +9,9 @@ export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
       type: 'postgres',
       url: process.env.DATABASE_URL,
       port: 5432,
-      synchronize: true,
+      synchronize: false,
       logging: true,
-      entities: ['dist/entity/**/*{.ts,.js}'],
+      entities: [__dirname + '/../**/*.entity.{js,ts}'],
       migrations: ['dist/migration/**/*{.ts,.js}'],
       migrationsRun: true,
     };
