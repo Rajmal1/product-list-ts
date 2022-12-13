@@ -2,11 +2,11 @@ import { Controller, Get, Query, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { ProductService } from './product.service';
 
-@Controller('product')
+@Controller('api/product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
-  @Get()
+  @Get('sort')
   async getProduct(
     @Res() res: Response,
     @Query() params: { take: string; skip: string },
