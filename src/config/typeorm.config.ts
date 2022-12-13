@@ -3,6 +3,9 @@ import {
   TypeOrmModuleOptions,
 } from '@nestjs/typeorm';
 
+const entitiesPath = process.env.ENTITIES_PATH;
+const migrationsPath = process.env.ENTITIES_PATH;
+
 export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
   useFactory: async (): Promise<TypeOrmModuleOptions> => {
     return {
@@ -11,8 +14,8 @@ export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
       port: 5432,
       synchronize: false,
       logging: true,
-      entities: [__dirname + '/../**/*.entity.{js,ts}'],
-      migrations: ['dist/migration/**/*{.ts,.js}'],
+      entities: [__dirname + entitiesPath],
+      migrations: [migrationsPath],
       migrationsRun: true,
     };
   },
