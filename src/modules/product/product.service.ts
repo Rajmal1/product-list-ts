@@ -31,6 +31,8 @@ export class ProductService {
   async getTodayValidProduct(take: string, skip: string): Promise<Paginate> {
     const [result, total] = await this.productRepository.findAndCount({
       where: { dias_para_vencimento: 0 },
+      take: parseInt(take.toString()) || 20,
+      skip: parseInt(skip.toString()) || 0,
     });
     return this.commonModule.paginateResults(
       result,
@@ -43,6 +45,8 @@ export class ProductService {
   async getTomorowValidProduct(take: string, skip: string): Promise<Paginate> {
     const [result, total] = await this.productRepository.findAndCount({
       where: { dias_para_vencimento: 1 },
+      take: parseInt(take.toString()) || 20,
+      skip: parseInt(skip.toString()) || 0,
     });
 
     return this.commonModule.paginateResults(
