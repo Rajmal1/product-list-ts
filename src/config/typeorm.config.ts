@@ -2,20 +2,22 @@ import {
   TypeOrmModuleAsyncOptions,
   TypeOrmModuleOptions,
 } from '@nestjs/typeorm';
-
-const entitiesPath = process.env.ENTITIES_PATH;
-const migrationsPath = process.env.ENTITIES_PATH;
+import { resolve } from 'path';
 
 export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
   useFactory: async (): Promise<TypeOrmModuleOptions> => {
+    const entitiesPath = process.env.ENTITIES_PATH;
+    const migrationsPath = process.env.MIGRATIONS_PATH;
+    const databaseUrl = process.env.DATABASE_URL;
+
     return {
       type: 'postgres',
-      url: process.env.DATABASE_URL,
+      url: databaseUrl,
       port: 5432,
       synchronize: false,
-      logging: true,
-      entities: [__dirname + entitiesPath],
-      migrations: [migrationsPath],
+      logging: false,
+      entities: [resolve(__dirname, entitiesPath)],
+      migrations: [resolve(__dirname, '..', migrationsPath)],
       migrationsRun: true,
     };
   },

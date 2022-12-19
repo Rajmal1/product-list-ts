@@ -15,10 +15,21 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  it('/ (GET)', () => {
+  it('/api/product/sort', () => {
     return request(app.getHttpServer())
-      .get('/')
-      .expect(200)
-      .expect('Hello World!');
+      .get('/api/product/sort?take=10&skip=0')
+      .expect(200);
+  });
+
+  it('/api/product/sort', () => {
+    return request(app.getHttpServer())
+      .get('/api/product/today?take=10&skip=0')
+      .expect(200);
+  });
+
+  it('/api/product/sort', () => {
+    return request(app.getHttpServer())
+      .get('/api/product/tomorow?take=10&skip=0')
+      .expect(200);
   });
 });
