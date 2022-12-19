@@ -10,8 +10,6 @@ export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
     const migrationsPath = process.env.MIGRATIONS_PATH;
     const databaseUrl = process.env.DATABASE_URL;
 
-    console.log(resolve(__dirname, '..', migrationsPath));
-
     return {
       type: 'postgres',
       url: databaseUrl,
